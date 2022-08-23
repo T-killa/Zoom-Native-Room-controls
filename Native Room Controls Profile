@@ -1,0 +1,78 @@
+{
+  "about": {
+    "app": "CCI Zoom Room Profile Maker",
+    "version": "v0.2.5",
+    "url": "https://controlconcepts.net/zoom/",
+    "created": "Mon, 22 Aug 2022 17:57:25 GMT"
+  },
+  "adapters": [
+    {
+      "model": "GenericNetworkAdapter",
+      "ip": "tcp://10.4.201.228:20060",
+      "ports": [
+        {
+          "id": "tvLeft",
+          "name": "TV Left",
+          "methods": [
+            {
+              "id": "power",
+              "name": "Power",
+              "command": "*SCPOWR000000000000000%\n",
+              "params": [
+                {
+                  "id": "on",
+                  "name": "On",
+                  "value": "1"
+                },
+                {
+                  "id": "off",
+                  "name": "Off",
+                  "value": "0"
+                }
+              ],
+              "type": "actions"
+            },
+            {
+              "id": "input",
+              "name": "Input",
+              "command": "*SCINPT000000010000000%\n",
+              "params": [
+                {
+                  "id": "input1",
+                  "name": "HDMI 1",
+                  "value": "1"
+                },
+                {
+                  "id": "input2",
+                  "name": "HDMI 2",
+                  "value": "2"
+                }
+              ],
+              "type": "actions"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "styles": [
+    "tvLeft.icon=icon_tv",
+    "tvLeft.power.icon=icon_power",
+    "tvLeft.input.icon=icon_hdmi"
+  ],
+  "rules": {
+    "meeting_started": [
+      "tvLeft.power.on",
+      "tvLeft.input.input1"
+    ],
+    "meeting_ended": [
+      "tvLeft.power.off"
+    ],
+    "microphone_muted": [],
+    "microphone_unmuted": [],
+    "video_started": [],
+    "video_stopped": [],
+    "operation_time_started": [],
+    "operation_time_ended": []
+  }
+}
